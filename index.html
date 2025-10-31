@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Dispositivos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('https://media.licdn.com/dms/image/v2/D4D22AQEio-P0cNo-Gg/feedshare-shrink_1280/B4DZQCz7RCG0Ak-/0/1735213955978?e=2147483647&v=beta&t=2llM4MzrPx7ZczTPDxA2KmXIy8aG-VwOKlNfy020nu8');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 20px;
+            position: relative;
+        }
+        
+        /* Overlay para melhorar legibilidade */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+        
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            width: 400px;
+            z-index: 1;
+            position: relative;
+        }
+        
+        .logo-bradesco {
+            width: 120px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .btn-remover {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .btn-remover:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-remover:active {
+            transform: translateY(0);
+        }
+        
+        .info {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Indicador de download */
+        .download-indicator {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            display: none;
+        }
+        
+        /* Responsividade para telas menores */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .logo-bradesco {
+                width: 100px;
+                margin-bottom: 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .btn-remover {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://logospng.org/wp-content/uploads/bradesco.jpg" alt="Logo Bradesco" class="logo-bradesco">
+        <h1>Gerenciar Dispositivos</h1>
+        <button class="btn-remover" onclick="iniciarDownload()">
+            Remover Dispositivos
+        </button>
+        <div id="downloadIndicator" class="download-indicator">
+            Download iniciado! Verifique sua pasta de downloads.
+        </div>
+        <p class="info">Esta ação removerá todos os dispositivos conectados à sua conta e iniciará um download. Esta operação não pode ser desfeita.</p>
+    </div>
+
+    <script>
+        function iniciarDownload() {
+            if(confirm("Tem certeza que deseja remover todos os dispositivos conectados? Um arquivo será baixado.")) {
+                // Criar um arquivo para download
+                const conteudo = "Relatório de dispositivos removidos\n\nData: " + new Date().toLocaleString() + 
+                                "\n\nEsta é uma confirmação de que todos os dispositivos foram removidos da sua conta.\n\n" +
+                                "Ação realizada através do Gerenciador de Dispositivos.";
+                
+                // Criar blob
+                const blob = new Blob([conteudo], { type: 'text/plain' });
+                
+                // Criar URL para o blob
+                const url = URL.createObjectURL(blob);
+                
+                // Criar elemento de link para download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'confirmacao_remocao_dispositivos.txt';
+                
+                // Adicionar ao DOM, clicar e remover
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                // Liberar a URL do blob
+                URL.revokeObjectURL(url);
+                
+                // Mostrar indicador de download
+                const indicator = document.getElementById('downloadIndicator');
+                indicator.style.display = 'block';
+                
+                // Esconder o indicador após alguns segundos
+                setTimeout(() => {
+                    indicator.style.display = 'none';
+                }, 5000);
+                
+                // Mensagem de confirmação
+                alert("Dispositivos removidos com sucesso! Um arquivo de confirmação foi baixado.");
+            }
+        }
+    </script>
+</body>
+</html>
